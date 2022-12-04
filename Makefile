@@ -3,7 +3,7 @@
 
 DOCKER_TAG := latest
 build: ## デプロイ用のイメージをビルドする
-	docker build -t kijimad/gotodo:${DOCKER_TAG} \
+	docker build -t kijimad/go_skel:${DOCKER_TAG} \
 	--target deploy ./
 
 build-local: ## ローカル開発用のイメージをビルドする
