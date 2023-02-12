@@ -33,7 +33,7 @@ lint: ## Run lint
 
 .PHONY: run
 run: ## Run
-	go run .
+	go run ./cmd
 
 .PHONY: test
 test: ## Run test
