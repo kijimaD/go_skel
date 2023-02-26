@@ -3,9 +3,13 @@
 DOCKER_TAG := latest
 
 .PHONY: build
-build: ## Build image for deploy
+build: ## Build go module
+	go build -o ./bin/go_skel .
+
+.PHONY: build-image
+build-image: ## Build image for deploy
 	docker build -t kijimad/go_skel:${DOCKER_TAG} \
-	--target deploy ./
+	--target release ./
 
 .PHONY: build-local
 build-local: ## Build image for local development
