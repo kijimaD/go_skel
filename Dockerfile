@@ -12,7 +12,7 @@ COPY . .
 
 RUN GO111MODULE=on CGO_ENABLED=0 go build -o ./bin/go_skel \
     -ldflags='-w -s -extldflags "-static"' \
-    ./cmd \
+    . \
  && upx-ucl --best --ultra-brute ./bin/go_skel
 
 ###########
