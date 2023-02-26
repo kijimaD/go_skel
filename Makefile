@@ -33,7 +33,7 @@ ps: ## Check container status
 
 .PHONY: lint
 lint: ## Run lint
-	docker run --rm -v ${PWD}:/app -w /app golangci/golangci-lint:v1.50.1 golangci-lint run -v
+	docker run --rm -v ${PWD}:/app -w /app golangci/golangci-lint:v1.51.2 golangci-lint run -v
 
 .PHONY: run
 run: ## Run
