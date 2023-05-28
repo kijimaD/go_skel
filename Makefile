@@ -41,8 +41,12 @@ run: ## Run
 	go run .
 
 .PHONY: test
-test: ## Run test
+test: ## Execute test
 	go test -race -shuffle=on -v ./...
+
+.PHONY: gen
+gen: ## Execute go generate
+	go generate ./...
 
 .PHONY: help
 help: ## Show help
