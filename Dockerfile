@@ -19,7 +19,7 @@ RUN GO111MODULE=on CGO_ENABLED=0 go build -o ./bin/go_skel \
 # release #
 ###########
 
-FROM golang:1.20-buster AS release
+FROM gcr.io/distroless/static-debian11:latest AS release
 
 COPY --from=builder /build/bin/go_skel /bin/
 WORKDIR /workdir
