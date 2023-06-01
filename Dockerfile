@@ -20,9 +20,6 @@ RUN GO111MODULE=on CGO_ENABLED=0 go build -o ./bin/go_skel \
 ###########
 
 FROM golang:1.20-buster AS release
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    git
 
 COPY --from=builder /build/bin/go_skel /bin/
 WORKDIR /workdir
