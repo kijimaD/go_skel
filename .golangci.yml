@@ -1,3 +1,4 @@
+version: "2"
 linters:
   enable:
     - asasalint
@@ -7,26 +8,20 @@ linters:
     - containedctx
     - contextcheck
     - cyclop
-    # - deadcode
     - decorder
-    # - depguard
     - dogsled
     - dupl
     - dupword
     - durationcheck
-    - errcheck
+    - err113
     - errchkjson
     - errname
     - errorlint
-    - execinquery
     - exhaustive
-    # - exhaustivestruct
     - exhaustruct
-    - exportloopref
     - forbidigo
     - forcetypeassert
     - funlen
-    - gci
     - ginkgolinter
     - gocheckcompilerdirectives
     - gochecknoglobals
@@ -37,32 +32,21 @@ linters:
     - gocyclo
     - godot
     - godox
-    - goerr113
-    - gofmt
-    - gofumpt
     - goheader
-    - goimports
-    # - golint
-    - gomnd
     - gomoddirectives
     - gomodguard
     - goprintffuncname
     - gosec
-    - gosimple
-    - govet
     - grouper
-    # - ifshort
     - importas
-    - ineffassign
     - interfacebloat
-    # - interfacer
     - ireturn
     - lll
     - loggercheck
     - maintidx
     - makezero
-    # - maligned
     - misspell
+    - mnd
     - musttag
     - nakedret
     - nestif
@@ -72,7 +56,6 @@ linters:
     - noctx
     - nolintlint
     - nonamedreturns
-    # - nosnakecase
     - nosprintfhostport
     - paralleltest
     - prealloc
@@ -80,26 +63,37 @@ linters:
     - promlinter
     - reassign
     - revive
-    # - rowserrcheck
-    # - scopelint
     - sqlclosecheck
     - staticcheck
-    # - structcheck
-    - stylecheck
     - tagliatelle
-    - tenv
     - testableexamples
-    # - testpackage
     - thelper
     - tparallel
-    - typecheck
     - unconvert
     - unparam
-    - unused
     - usestdlibvars
-    # - varcheck
-    # - varnamelen
-    # - wastedassign
     - whitespace
     - wrapcheck
-    # - wsl
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
