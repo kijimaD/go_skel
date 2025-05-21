@@ -48,7 +48,7 @@ jobs:
         uses: golangci/golangci-lint-action@v6
         with:
           args: --verbose
-          version: v1.54
+          version: v2.1.6
 
   fmt:
     runs-on: ubuntu-latest
