@@ -6,7 +6,7 @@ test: ## テストを実行する
 
 .PHONY: build
 build: ## ビルドする
-	go build -o ./bin/go_skel .
+	go build -o ./bin/goskel .
 
 .PHONY: fmt
 fmt: ## フォーマットする
