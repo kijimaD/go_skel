@@ -6,13 +6,13 @@ rename command:
 
 ```shell
 git grep -l 'goskel' | xargs sed -i 's/goskel/your_repo/g'
-git grep -l 'kijimaD' | xargs sed -i 's/kijimaD/your_name/g'
+git grep -l 'kijimad' | xargs sed -i 's/kijimad/your_name/g'
 ```
 
 ## install
 
 ```shell
-$ go install github.com/kijimaD/goskel@main
+$ go install github.com/kijimad/goskel@main
 ```
 
 ## docker run

@@ -1,4 +1,4 @@
-module github.com/kijimaD/goskel
+module github.com/kijimad/goskel
 
 go 1.24.0
 
