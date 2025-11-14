@@ -1,52 +1,35 @@
 .DEFAULT_GOAL := help
 
-DOCKER_TAG := latest
+.PHONY: test
+test: ## テストを実行する
+	go test -v -cover -shuffle=on ./...
 
 .PHONY: build
-build: ## Build go module
+build: ## ビルドする
 	go build -o ./bin/go_skel .
 
-.PHONY: build-image
-build-image: ## Build image for deploy
-	docker build -t kijimad/go_skel:${DOCKER_TAG} \
-	--target release ./
-
-.PHONY: build-local
-build-local: ## Build image for local development
-	docker-compose build --no-cache
-
-.PHONY: up
-up: ## Do docker compose up
-	docker-compose up -d
-
-.PHONY: down
-down: ## Do docker compose down
-	docker-compose down
-
-.PHONY: logs
-logs: ## Tail docker compose logs
-	docker-compose logs -f
-
-.PHONY: ps
-ps: ## Check container status
-	docker-compose ps
+.PHONY: fmt
+fmt: ## フォーマットする
+	goimports -w .
 
 .PHONY: lint
-lint: ## Run lint
-	docker run --rm -v ${PWD}:/app -w /app golangci/golangci-lint:v2.1.6 golangci-lint run ./... -v
-	docker run --rm -v ${PWD}:/app -w /app golang:1.24 go vet ./...
-
-.PHONY: run
-run: ## Run
-	go run .
-
-.PHONY: test
-test: ## Execute test
-	go test -race -shuffle=on -v ./...
+lint: ## Linterを実行する
+	go build -o /dev/null . # buildが通らない状態でlinter実行するとミスリードなエラーが出るので先に試す
+	golangci-lint run -v ./...
+	go vet ./...
 
 .PHONY: gen
 gen: ## Execute go generate
 	go generate ./...
+
+.PHONY: toolsinstall
+toolsinstall: ## 開発ツールをインストールする
+	@go install golang.org/x/tools/cmd/goimports@latest
+	@which golangci-lint > /dev/null || (echo "Installing golangci-lint..." && \
+		curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $$(go env GOPATH)/bin v2.2.2)
+
+.PHONY: check
+check: fmt build test lint ## 一気にチェックする
 
 .PHONY: help
 help: ## Show help
