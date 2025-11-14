@@ -29,11 +29,29 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    # octocov 用の設定
+    permissions:
+      # PRにコメントする
+      pull-requests: write
+      # 実行時間取得
+      contents: read
+      # 前のレポートを取得する
+      actions: read
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
+      - name: Cache Go modules
+        uses: actions/cache@main
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
       - name: test
         run: make test
+      - name: coverage for octocov
+        run: go test ./... -coverprofile=coverage.out
+      - uses: k1LoW/octocov-action@v1
 
   lint:
     runs-on: ubuntu-latest
