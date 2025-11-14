@@ -16,8 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
-        with:
-          go-version: "^1.21.0"
       - name: build
         run: make build
 
@@ -26,8 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
-        with:
-          go-version: "^1.21.0"
       - name: run
         run: make run
 
@@ -36,8 +32,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
-        with:
-          go-version: "^1.21.0"
       - name: test
         run: make test
 
@@ -45,14 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup-go-with-x
-      - name: Cache Go modules
-        uses: actions/cache@main
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
+      - uses: actions/setup-go@v6
       - name: lint
         run: make toolsinstall lint
 
@@ -61,14 +48,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
-        with:
-          go-version: "^1.21.0"
-      - name: install goimports
-        run: go install golang.org/x/tools/cmd/goimports@${GOIMPORTS_VERSION}
-        env:
-          GOIMPORTS_VERSION: v0.9.1
-      - name: format
-        run: goimports -l -w -local .
+      - name: fmt
+        run: make toolsinstall fmt
       - name: check change
         run: |
           git status -s
